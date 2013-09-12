@@ -1,0 +1,38 @@
+# Boost.strand Library Tests Jamfile
+
+#          Copyright Oliver Kowalke 2013.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+project boost/fiber/test
+    : requirements
+      <library>../../test/build//boost_unit_test_framework
+      <library>/boost/fiber//boost_fiber
+      <library>/boost/system//boost_system
+      <library>/boost/thread//boost_thread
+      <link>static
+      <threading>multi
+    ;
+
+rule fiber-test ( source )
+{
+    return
+        [ run $(source).cpp ]
+    ;
+}
+
+test-suite fibers :
+  [ fiber-test test_fiber ]
+  [ fiber-test test_mutex ]
+  [ fiber-test test_condition ]
+  [ fiber-test test_generic_locks ]
+  [ fiber-test test_unique_lock ]
+  [ fiber-test test_lock ]
+  [ fiber-test test_barrier ]
+  [ fiber-test test_fss ]
+  [ fiber-test test_futures ]
+# [ fiber-test test_then ]
+;
